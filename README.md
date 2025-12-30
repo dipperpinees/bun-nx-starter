@@ -1,101 +1,120 @@
-# BunNx
+# Bun NX API
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A high-performance, modern backend monorepo built with **NestJS**, **Nx**, and **Bun**. This project leverages **Drizzle ORM** for database interactions and **Fastify** for the underlying HTTP framework.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## 🚀 Key Features
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/nest?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- **Monorepo Architecture**: Managed by [Nx](https://nx.dev) for efficient build and test pipelines.
+- **Runtime**: Powered by [Bun](https://bun.sh) for lightning-fast package installation and script execution.
+- **Framework**: [NestJS](https://nestjs.com) with the **Fastify** adapter for high-performance Node.js server applications.
+- **Database**:
+  - **Drizzle ORM**: Type-safe automated SQL generation and schema management.
+  - **PostgreSQL**: Robust, relational database system.
+- **Documentation**:
+  - **Swagger/OpenAPI**: Auto-generated API specs.
+  - **Scalar**: Modern, interactive API reference UI.
+- **Logging**: **pino** via `nestjs-pino` for fast, structured JSON logging.
+- **Validation**: `class-validator` and `class-transformer` for robust request payload validation.
 
-## Run tasks
+## 🛠️ Tech Stack
 
-To run the dev server for your app, use:
+| Category         | Technology    |
+| ---------------- | ------------- |
+| **Runtime**      | Bun           |
+| **Monorepo**     | Nx            |
+| **Framework**    | NestJS        |
+| **HTTP Adapter** | Fastify       |
+| **ORM**          | Drizzle ORM   |
+| **Database**     | PostgreSQL    |
+| **API Docs**     | Scalar / Swagger |
 
-```sh
-npx nx serve api
+## 📦 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **[Bun](https://bun.sh/)** (v1.0 or higher)
+- **PostgreSQL** (Running locally or in Docker)
+
+## 🏁 Getting Started
+
+### 1. Install Dependencies
+
+```bash
+bun install
 ```
 
-To create a production bundle:
+### 2. Configure Environment
 
-```sh
-npx nx build api
+Copy the example environment file and configure your database creation.
+
+```bash
+cp .env.example .env
 ```
 
-To see all available targets to run for a project, run:
+Update `.env` with your PostgreSQL credentials:
 
-```sh
-npx nx show project api
+```ini
+DATABASE_URL=postgres://user:password@localhost:5432/db_name
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### 3. Database Migration
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Manage your database schema using Drizzle Kit.
 
-## Add new projects
+- **Generate migrations:**
+  ```bash
+  bun run db:generate
+  ```
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+- **Run migrations:**
+  ```bash
+  bun run db:migrate
+  ```
 
-Use the plugin's generator to create new projects.
+- **Open Drizzle Studio (Database GUI):**
+  ```bash
+  bun run db:studio
+  ```
 
-To generate a new application, use:
+### 4. Run the Application
 
-```sh
-npx nx g @nx/nest:app demo
+Start the API development server:
+
+```bash
+bun nx serve api
 ```
 
-To generate a new library, use:
+The server will start on `http://localhost:3000`.
 
-```sh
-npx nx g @nx/node:lib mylib
+## 📚 Documentation
+
+Once the application is running, you can access the API documentation:
+
+- **Interactive API Docs (Scalar)**: [http://localhost:3000/docs](http://localhost:3000/docs)
+- **OpenAPI JSON Spec**: [http://localhost:3000/api/openapi](http://localhost:3000/api/openapi)
+
+## 🏗️ Project Structure
+
+```
+.
+├── apps
+│   └── api          # Main NestJS Application
+├── libs
+│   ├── database     # Drizzle ORM schema and connection setup
+│   └── shared       # Shared DTOs, responses, and utilities
+├── .env             # Environment variables
+├── bun.lockb        # Bun lockfile
+└── package.json     # Project scripts and dependencies
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## 🤝 Contributing
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+1. Fork the repository.
+2. Create feature branch (`git checkout -b feature/amazing-feature`).
+3. Commit changes (`git commit -m 'Add amazing feature'`).
+4. Push to branch (`git push origin feature/amazing-feature`).
+5. Open a Pull Request.
 
-## Set up CI!
+---
 
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/nest?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Built with ❤️ using [Bun](https://bun.sh) and [Nx](https://nx.dev).
