@@ -9,9 +9,9 @@ import {
     Post
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { TransformApiResponse } from '@shared/decorators/transform-api-response.decorator';
-import { OkResponse } from '@shared/responses/ok.response';
-import { ApiSuccessResponse } from '@shared/responses/swagger';
+import { TransformApiResponse } from '@nest/decorators/transform-api-response.decorator';
+import { OkResponse } from '@nest/responses/ok.response';
+import { ApiSuccessResponse } from '@nest/responses/swagger';
 import { CreateUserDto, UpdateUserDto } from './dtos/users.dto';
 import { UserListResponse, UserResponse } from './responses/user.response';
 import { UsersService } from './users.service';

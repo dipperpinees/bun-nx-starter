@@ -7,7 +7,7 @@ import {
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { apiReference } from '@scalar/nestjs-api-reference';
 import { AppModule } from './modules/app/app.module';
-import { AllExceptionsFilter } from '@shared/filters/http-exception.filter';
+import { AllExceptionsFilter } from '@nest/filters/http-exception.filter';
 import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {

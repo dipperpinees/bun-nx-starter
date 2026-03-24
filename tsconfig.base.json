@@ -21,8 +21,11 @@
       "@database": [
         "libs/database/src/index.ts"
       ],
-      "@shared/*": [
-        "libs/shared/src/*"
+      "@nest/*": [
+        "libs/nest/src/*"
+      ],
+      "@ui": [
+        "libs/ui/src/index.ts"
       ]
     }
   },
