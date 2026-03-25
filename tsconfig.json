@@ -26,9 +26,6 @@
       ],
       "@ui": [
         "libs/ui/src/index.ts"
-      ],
-      "@ui/*": [
-        "libs/ui/src/*"
       ]
     }
   },

@@ -20,6 +20,8 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
     "drizzle-orm": "^0.45.1",
+    "jose": "^6.2.2",
+    "keycloak-js": "^26.2.3",
     "nestjs-pino": "^4.5.0",
     "postgres": "^3.4.7",
     "react": "^19.2.4",

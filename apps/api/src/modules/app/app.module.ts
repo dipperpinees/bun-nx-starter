@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 import { UsersModule } from '../users/users.module';
 import { AllExceptionsFilter } from '@nest/filters/http-exception.filter';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -40,10 +41,10 @@ import { AllExceptionsFilter } from '@nest/filters/http-exception.filter';
         }),
       },
     }),
-    UsersModule
+    UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [AllExceptionsFilter],
 })
 export class AppModule { }
-

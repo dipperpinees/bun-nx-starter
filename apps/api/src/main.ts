@@ -17,6 +17,10 @@ async function bootstrap() {
   );
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+  app.enableCors({
+    origin: process.env.WEB_ORIGIN ?? 'http://localhost:4200',
+    credentials: true,
+  });
 
   app.enableVersioning({
     type: VersioningType.URI,
@@ -36,6 +40,15 @@ async function bootstrap() {
     .setDescription('API documentation for Bun NX project')
     .setVersion('1.0')
     .addTag('users', 'User management endpoints')
+    .addTag('auth', 'Authentication endpoints')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'keycloak',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

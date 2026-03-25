@@ -28,6 +28,7 @@ A high-performance, modern monorepo built with **Nx** and **Bun**. Includes a **
 
 - **[Bun](https://bun.sh/)** (v1.0 or higher)
 - **PostgreSQL** (Running locally or in Docker)
+- **Docker** (for Keycloak demo)
 
 ## 🏁 Getting Started
 
@@ -48,6 +49,19 @@ Update `.env` with your PostgreSQL credentials:
 ```ini
 DATABASE_URL=postgres://user:password@localhost:5432/db_name
 ```
+
+### 3. Start Keycloak (Demo Realm Included)
+
+```bash
+docker compose up -d keycloak
+```
+
+Keycloak is available at `http://localhost:8080` and imports realm from `infra/keycloak/bun-nx-realm.json`.
+
+Demo credentials:
+
+- Username: `demo`
+- Password: `demo123`
 
 ## 🏗️ Project Structure
 
@@ -176,6 +190,18 @@ Once the API is running:
 
 - **Interactive API Docs (Scalar)**: [http://localhost:3000/docs](http://localhost:3000/docs)
 - **OpenAPI JSON Spec**: [http://localhost:3000/api/openapi](http://localhost:3000/api/openapi)
+
+## 🔐 Keycloak Demo Flow
+
+1. Start API + Web:
+
+```bash
+npx nx run-many -t serve -p api web
+```
+
+2. Open Web app at `http://localhost:4200`.
+3. Click **Login With Keycloak** and sign in with `demo/demo123`.
+4. Click **Call /auth/me** to call protected API endpoint `GET /api/v1/auth/me`.
 
 ## 🔗 Path Aliases
 
