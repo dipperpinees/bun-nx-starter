@@ -1,23 +1,23 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { KeycloakJwtGuard } from './keycloak-jwt.guard';
+import { AuthentikJwtGuard } from './authentik-jwt.guard';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   @Get('me')
-  @UseGuards(KeycloakJwtGuard)
-  @ApiBearerAuth('keycloak')
-  @ApiOperation({ summary: 'Get current authenticated user from Keycloak token' })
+  @UseGuards(AuthentikJwtGuard)
+  @ApiBearerAuth('authentik')
+  @ApiOperation({ summary: 'Get current authenticated user from Authentik token' })
   getMe(@Req() req: any) {
     const user = req.user ?? {};
 
     return {
       sub: user.sub,
-      username: user.preferred_username,
+      username: user.preferred_username ?? user.nickname,
       email: user.email,
       name: user.name,
-      roles: user.realm_access?.roles ?? [],
+      roles: user.roles ?? user.groups ?? [],
     };
   }
 }

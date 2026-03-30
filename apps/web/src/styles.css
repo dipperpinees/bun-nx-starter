@@ -1,3 +1,40 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --app-bg-1: #041322;
+  --app-bg-2: #150d2f;
+  --app-glow-a: rgba(40, 176, 255, 0.22);
+  --app-glow-b: rgba(255, 88, 170, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background:
+    radial-gradient(circle at 15% 8%, var(--app-glow-a), transparent 38%),
+    radial-gradient(circle at 92% 90%, var(--app-glow-b), transparent 34%),
+    linear-gradient(150deg, var(--app-bg-1), var(--app-bg-2));
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .auth-grid {
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+}

@@ -40,6 +40,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
       } else if (typeof res === 'string') {
         message = res;
       }
+    } else {
+      stack = (exception as any).stack;
     }
 
     const responseTime = (request as any).raw?.startTime

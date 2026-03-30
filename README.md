@@ -28,7 +28,7 @@ A high-performance, modern monorepo built with **Nx** and **Bun**. Includes a **
 
 - **[Bun](https://bun.sh/)** (v1.0 or higher)
 - **PostgreSQL** (Running locally or in Docker)
-- **Docker** (for Keycloak demo)
+- **Docker** (for Authentik demo)
 
 ## 🏁 Getting Started
 
@@ -50,18 +50,30 @@ Update `.env` with your PostgreSQL credentials:
 DATABASE_URL=postgres://user:password@localhost:5432/db_name
 ```
 
-### 3. Start Keycloak (Demo Realm Included)
+### 3. Start Authentik (Demo)
 
 ```bash
-docker compose up -d keycloak
+docker compose up -d authentik-server authentik-worker
 ```
 
-Keycloak is available at `http://localhost:8080` and imports realm from `infra/keycloak/bun-nx-realm.json`.
+Authentik is available at `http://localhost:9100`.
 
-Demo credentials:
+When running for the first time, complete the initial Authentik setup flow and create your own admin/user account.
 
-- Username: `demo`
-- Password: `demo123`
+### 4. Create/Recover Authentik Admin User
+
+- First-time setup URL: `http://localhost:9100/if/flow/initial-setup/`
+- Optional auto-bootstrap via `.env`:
+  - `AUTHENTIK_BOOTSTRAP_PASSWORD`
+  - `AUTHENTIK_BOOTSTRAP_EMAIL`
+  - `AUTHENTIK_BOOTSTRAP_TOKEN`
+- If you lose admin permissions, restore with:
+
+```bash
+docker compose exec authentik-worker ak create_admin_group <username>
+```
+
+Note: bootstrap env vars are applied on first initialization of Authentik DB. If DB is already initialized, use recovery command above.
 
 ## 🏗️ Project Structure
 
@@ -86,86 +98,86 @@ Demo credentials:
 
 ```bash
 # Start API server (http://localhost:3000)
-npx nx serve api
+bunx nx serve api
 
 # Start Web dev server (http://localhost:4200)
-npx nx serve web
+bunx nx serve web
 
 # Start both API and Web in parallel
-npx nx run-many -t serve -p api web
+bunx nx run-many -t serve -p api web
 ```
 
 ### Build
 
 ```bash
 # Build API
-npx nx build api
+bunx nx build api
 
 # Build Web
-npx nx build web
+bunx nx build web
 
 # Build all projects
-npx nx run-many -t build
+bunx nx run-many -t build
 ```
 
 ### Lint
 
 ```bash
 # Lint a specific project
-npx nx lint api
-npx nx lint web
-npx nx lint ui
+bunx nx lint api
+bunx nx lint web
+bunx nx lint ui
 
 # Lint all projects
-npx nx run-many -t lint
+bunx nx run-many -t lint
 ```
 
 ### Test
 
 ```bash
 # Test a specific project
-npx nx test api
+bunx nx test api
 
 # Test all projects
-npx nx run-many -t test
+bunx nx run-many -t test
 ```
 
 ### Generate
 
 ```bash
 # Generate a new React app
-npx nx g @nx/react:app --directory=apps/<name> --bundler=vite
+bunx nx g @nx/react:app --directory=apps/<name> --bundler=vite
 
 # Generate a new React library
-npx nx g @nx/react:lib --directory=libs/<name> --importPath=@<name>
+bunx nx g @nx/react:lib --directory=libs/<name> --importPath=@<name>
 
 # Generate a new NestJS app
-npx nx g @nx/nest:app --directory=apps/<name>
+bunx nx g @nx/nest:app --directory=apps/<name>
 
 # Generate a React component in a lib
-npx nx g @nx/react:component --directory=libs/ui/src/components/<name>
+bunx nx g @nx/react:component --directory=libs/ui/src/components/<name>
 ```
 
 ### Dependency Graph
 
 ```bash
 # Visualize project dependency graph
-npx nx graph
+bunx nx graph
 ```
 
 ### Other Useful Commands
 
 ```bash
 # Show details of a project
-npx nx show project <name> --web
+bunx nx show project <name> --web
 
 # List all projects
-npx nx show projects
+bunx nx show projects
 
 # Run affected targets only (based on git changes)
-npx nx affected -t build
-npx nx affected -t lint
-npx nx affected -t test
+bunx nx affected -t build
+bunx nx affected -t lint
+bunx nx affected -t test
 ```
 
 ## 🗄️ Database Commands
@@ -191,16 +203,16 @@ Once the API is running:
 - **Interactive API Docs (Scalar)**: [http://localhost:3000/docs](http://localhost:3000/docs)
 - **OpenAPI JSON Spec**: [http://localhost:3000/api/openapi](http://localhost:3000/api/openapi)
 
-## 🔐 Keycloak Demo Flow
+## 🔐 Authentik Demo Flow
 
 1. Start API + Web:
 
 ```bash
-npx nx run-many -t serve -p api web
+bunx nx run-many -t serve -p api web
 ```
 
 2. Open Web app at `http://localhost:4200`.
-3. Click **Login With Keycloak** and sign in with `demo/demo123`.
+3. Click **Login With Authentik** and sign in with your Authentik user.
 4. Click **Call /auth/me** to call protected API endpoint `GET /api/v1/auth/me`.
 
 ## 🔗 Path Aliases

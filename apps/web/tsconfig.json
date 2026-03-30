@@ -10,6 +10,7 @@
   },
   "files": [],
   "include": [
+    "vite.config.mts",
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",

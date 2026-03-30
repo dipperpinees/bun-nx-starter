@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { KeycloakJwtGuard } from './keycloak-jwt.guard';
+import { AuthentikJwtGuard } from './authentik-jwt.guard';
 
 @Module({
   controllers: [AuthController],
-  providers: [KeycloakJwtGuard],
+  providers: [AuthentikJwtGuard],
 })
 export class AuthModule {}

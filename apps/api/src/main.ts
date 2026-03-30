@@ -47,7 +47,7 @@ async function bootstrap() {
         scheme: 'bearer',
         bearerFormat: 'JWT',
       },
-      'keycloak',
+      'authentik',
     )
     .build();
 
